@@ -89,7 +89,7 @@ def build_docs(build_command, docs_directory):
     if os.path.exists(docs_requirements):
         subprocess.check_call(['pip', 'install', '-r', docs_requirements])
 
-    log_file = os.path.join(tempfile.tempdir(), 'sphinx-log')
+    log_file = os.path.join(tempfile.gettempdir(), 'sphinx-log')
     if os.path.exists(log_file):
         os.unlink(log_file)
 
