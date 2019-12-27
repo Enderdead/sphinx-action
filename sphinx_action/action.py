@@ -89,7 +89,7 @@ def build_docs(build_command, docs_directory):
     if os.path.exists(docs_requirements):
         subprocess.check_call(['pip', 'install', '-r', docs_requirements])
 
-    log_file = os.path.join('/tmp/', 'sphinx-log')
+    log_file = os.path.join(tempfile.gettempdir(), 'sphinx-log')
     if os.path.exists(log_file):
         os.unlink(log_file)
 
@@ -98,12 +98,14 @@ def build_docs(build_command, docs_directory):
     # environment variable, otherwise pass them straight into the command.
     build_command = shlex.split(build_command)
     if build_command[0] == 'make':
+        print("Test1")
         return_code = subprocess.call(
             build_command,
             env=dict(os.environ, SPHINXOPTS=sphinx_options),
             cwd=docs_directory
         )
     else:
+        print("Test2")
         return_code = subprocess.call(
             build_command + shlex.split(sphinx_options),
             cwd=docs_directory
